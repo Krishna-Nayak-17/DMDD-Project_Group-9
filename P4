@@ -1,3 +1,0 @@
-P4 
-All .sql files
-Zip Files containing GUI and Data Visualization
