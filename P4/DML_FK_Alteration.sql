@@ -1,0 +1,49 @@
+USE WarehouseManagement;
+
+ALTER TABLE [ORDER] 
+ADD StoreID INT NOT NULL,
+    CONSTRAINT FK_Store FOREIGN KEY (StoreID) REFERENCES Store(StoreID),
+    EmployeeID INT NOT NULL,
+    CONSTRAINT FK_Employee FOREIGN KEY (EmployeeID) REFERENCES Employee(EmployeeID);
+
+ALTER TABLE OrderDetail 
+ADD OrderID INT NOT NULL,
+    CONSTRAINT FK_Order FOREIGN KEY (OrderID) REFERENCES [Order](OrderID),
+    ProductID INT NOT NULL,
+    CONSTRAINT FK_Product FOREIGN KEY (ProductID) REFERENCES Product(ProductID);
+
+ALTER TABLE Payment 
+ADD OrderID INT NOT NULL,
+    CONSTRAINT FK_POrder FOREIGN KEY (OrderID) REFERENCES [Order](OrderID);
+
+ALTER TABLE Shipment 
+ADD OrderID INT NOT NULL,
+    CONSTRAINT FK_SOrder FOREIGN KEY (OrderID) REFERENCES [Order](OrderID);
+
+ALTER TABLE Product 
+ADD CategoryID INT NOT NULL,
+    CONSTRAINT FK_PCategoryID FOREIGN KEY (CategoryID) REFERENCES Category(CategoryID),
+    SupplierID INT NOT NULL,
+    CONSTRAINT FK_PSupplierID FOREIGN KEY (SupplierID) REFERENCES Supplier(SupplierID);
+
+ALTER TABLE Inventory 
+ADD ProductID INT NOT NULL,
+    CONSTRAINT FK_IProductID FOREIGN KEY (ProductID) REFERENCES Product(ProductID),
+    StoreID INT NOT NULL,
+    CONSTRAINT FK_IStoreID FOREIGN KEY (StoreID) REFERENCES Store(StoreID),
+	PlanogramID INT NOT NULL,
+    CONSTRAINT FK_IPlanogramID FOREIGN KEY (PlanogramID) REFERENCES Planogram(PlanogramID);
+
+ALTER TABLE SupplierContract 
+ADD SupplierID INT NOT NULL,
+    CONSTRAINT FK_SCSupplierID FOREIGN KEY (SupplierID) REFERENCES Supplier(SupplierID);
+
+ALTER TABLE ProductReview
+ADD SupplierID INT NOT NULL,
+	CONSTRAINT FK_PRSupplierID FOREIGN KEY (SupplierID) REFERENCES Supplier(SupplierID),
+	ProductID INT NOT NULL,
+    CONSTRAINT FK_PRProductID FOREIGN KEY (ProductID) REFERENCES Product(ProductID);
+
+ALTER TABLE Terms 
+ADD ContractID INT NOT NULL,
+    CONSTRAINT FK_TContractID FOREIGN KEY (ContractID) REFERENCES SupplierContract(ContractID);
